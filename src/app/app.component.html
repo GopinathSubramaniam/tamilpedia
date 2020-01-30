@@ -10,7 +10,7 @@
         <a class="nav-link" routerLink="/"><i class="fa fa-home"></i> Home</a>
       </li>
       <li class="nav-item" [ngClass]="{'active': router.url === '/admin/add'}">
-        <a class="nav-link" routerLink="/admin/add"><i class="fa fa-pencil-square-o"></i> Write Pedia</a>
+        <a class="nav-link pointer" (click)="goToWritePediaPage()"><i class="fa fa-pencil-square-o"></i> Write Pedia</a>
       </li>
       <li class="nav-item" [ngClass]="{'active': router.url === '/admin/pedias'}">
         <a class="nav-link" routerLink="/"><i class="fa fa-list"></i> Pedias</a>
@@ -33,17 +33,18 @@
     </div>
     <ul class="navbar-nav">
       <li class="nav-item dropdown" id="profileMenu">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
+        <a *ngIf="displayName" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fa fa-user"></i> {{displayName}}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a>
           <a class="dropdown-item" href="#"><i class="fa fa-gear"></i> Settings</a>
+          <a class="dropdown-item pointer" (click)="logout()"><i class="fa fa-sign-out"></i> Logout</a>
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link pointer" (click)="logout()"><i class="fa fa-sign-in"></i> Login</a>
+        <a class="nav-link pointer" (click)="displayLoginModal = true"><i class="fa fa-sign-in"></i> Login</a>
       </li>
     </ul>
   </div>

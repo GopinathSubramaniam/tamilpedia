@@ -4,7 +4,6 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { FormsModule } from '@angular/forms';
-import { MatSliderModule } from '@angular/material/slider';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from "ngx-spinner";
@@ -18,7 +17,6 @@ import { PediaModule } from './pedia/pedia.module';
 import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-
 
 @NgModule({
   declarations: [
@@ -38,7 +36,6 @@ import { MessageService } from 'primeng/api';
     AngularFirestoreModule,
     AngularFireAuthModule,
     NgxSpinnerModule,
-    MatSliderModule,
     FormsModule,
     ReactiveFormsModule
   ],

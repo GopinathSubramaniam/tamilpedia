@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
+import { AuthGuardService } from './util/auth-guard.service';
 
 const appRoutes: Routes = [
   {
@@ -23,6 +24,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'admin',
+    canActivate: [AuthGuardService],
     children: [
       {
         path: '',
@@ -30,7 +32,7 @@ const appRoutes: Routes = [
       }
     ]
   },
-  { path: '**', component: HomeComponent }
+  { path: '*', component: HomeComponent }
 ];
 
 @NgModule({

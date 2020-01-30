@@ -19,7 +19,7 @@ export class PediaAddComponent implements OnInit {
   }
 
   getPediaList() {
-    this.spinner.show();
+    // this.spinner.show();
     /* this.af.collection(Constant.COLLECTION.PEDIAS).add({}).then((res: any) => {
       console.log('Res = ', res);
       this.spinner.hide();

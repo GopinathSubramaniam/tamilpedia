@@ -53,8 +53,9 @@ export class AppComponent implements OnInit {
 
   logout() {
     this.spinner.show();
-    this.displayLoginModal = true
     this.afAuth.auth.signOut().then(() => {
+      sessionStorage.clear();
+      this.displayName = '';
       this.spinner.hide();
       this.router.navigate(['/']);
     });
@@ -68,4 +69,14 @@ export class AppComponent implements OnInit {
     this.displayLoginModal = false;
     this.router.navigate(['/register']);
   }
+
+  goToWritePediaPage() {
+    let userId = sessionStorage.getItem('userId');
+    if (userId) {
+      this.router.navigate(['/admin/add']);
+    } else {
+      this.displayLoginModal = true;
+    }
+  }
+
 }
