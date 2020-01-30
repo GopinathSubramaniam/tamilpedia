@@ -1,0 +1,29 @@
+<div class="container-fluid">
+  <div class="col-sm-12">
+    <div class="row">
+      <div class="col-sm-4">
+        <h6>Categories</h6>
+        <hr>
+        <p-tree [value]="topics" selectionMode="single" (onNodeSelect)="selectNode()"></p-tree>
+      </div>
+      <div class="col-sm-8">
+        <h6>Recent Topics</h6>
+        <hr>
+        <div>
+          <blockquote class="blockquote">
+            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+            <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+          </blockquote>
+          <blockquote class="blockquote">
+            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+            <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+          </blockquote>
+          <blockquote class="blockquote">
+            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+            <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
