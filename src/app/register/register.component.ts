@@ -3,8 +3,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AppService } from '../helpers/app.service';
 import { MustMatch } from '../helpers/must-match.validator';
-import { ToastService } from '../helpers/toast.service';
 import { Constant } from '../util/constant';
 import { Label } from '../util/labels';
 
@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
     private afAuth: AngularFireAuth,
     private formBuilder: FormBuilder,
     private af: AngularFirestore,
-    private toast: ToastService
+    private app: AppService
   ) { }
 
   ngOnInit() {
@@ -51,14 +51,14 @@ export class RegisterComponent implements OnInit {
         res.user.updateProfile({ displayName: obj.name, photoURL: '' });
         this.af.collection(Constant.COLLECTION.USERS).add(obj).then((res) => {
           this.resetForm();
-          this.toast.success(Label.SUCCESS.REGISTER);
+          this.app.showSuccessToast(Label.SUCCESS.REGISTER);
           this.spinner.hide();
         }).catch((err: any) => {
-          this.toast.error(Label.ERROR.ADD);
+          this.app.showErrorToast(Label.ERROR.ADD);
         });
       }).catch(err => {
         this.spinner.hide();
-        this.toast.error(Label.ERROR.ADD);
+        this.app.showErrorToast(Label.ERROR.ADD);
       });
     }
   }

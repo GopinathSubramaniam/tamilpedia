@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { AppService } from 'src/app/helpers/app.service';
+import { Constant } from 'src/app/util/constant';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-pedia-list',
@@ -7,9 +11,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PediaListComponent implements OnInit {
 
-  constructor() { }
+  pediaList: any[];
+
+  constructor(
+    private af: AngularFirestore,
+    private app: AppService
+  ) { }
 
   ngOnInit() {
+    this.getPediaList();
   }
+
+  getPediaList() {
+    this.app.showSpinner();
+    let userId = Constant.getUserId();
+    let whereCondition = (ref => ref.where(Constant.SESSION_VARIABLE.USER_ID, '==', userId));
+    let pediaSubscribe = this.af.collection(Constant.COLLECTION.PEDIAS, whereCondition).valueChanges().subscribe((data: any) => {
+      this.pediaList = data;
+      this.app.hideSpinner();
+      pediaSubscribe.unsubscribe();
+    });
+  }
+
 
 }

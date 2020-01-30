@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgxSpinnerService } from "ngx-spinner";
+import { AppService } from './helpers/app.service';
+import { Constant } from './util/constant';
+
 
 @Component({
   selector: 'app-root',
@@ -22,7 +24,7 @@ export class AppComponent implements OnInit {
     private router: Router,
     private afAuth: AngularFireAuth,
     private formBuilder: FormBuilder,
-    private spinner: NgxSpinnerService
+    private app: AppService
   ) { }
 
   ngOnInit() {
@@ -30,39 +32,38 @@ export class AppComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.min(6)]],
     });
-    let name = sessionStorage.getItem('displayName');
-    this.displayName = name;
+    this.displayName = Constant.getDisplayName();
   }
 
   get f() { return this.loginForm.controls; }
 
   onSubmit() {
     if (this.loginForm.valid) {
-      this.spinner.show();
+      this.app.showSpinner();
       let obj = this.loginForm.value;
       this.afAuth.auth.signInWithEmailAndPassword(obj.email, obj.password).then((res) => {
-        sessionStorage.setItem('userId', res.user.uid);
-        sessionStorage.setItem('displayName', res.user.displayName);
+        sessionStorage.setItem(Constant.SESSION_VARIABLE.USER_ID, res.user.uid);
+        sessionStorage.setItem(Constant.SESSION_VARIABLE.DISPLAY_NAME, res.user.displayName);
         this.displayName = res.user.displayName;
         this.displayLoginModal = false;
-        this.spinner.hide();
+        this.app.hideSpinner();
         this.router.navigate(['/']);
       });
     }
   }
 
   logout() {
-    this.spinner.show();
+    this.app.showSpinner();
     this.afAuth.auth.signOut().then(() => {
       sessionStorage.clear();
       this.displayName = '';
-      this.spinner.hide();
+      this.app.hideSpinner();
       this.router.navigate(['/']);
     });
   }
 
   goToListPage() {
-    this.router.navigate(['/pedia', this.searchText]);
+    this.router.navigate(['/pedia/list', this.searchText]);
   }
 
   goToRegisterPage() {
@@ -71,7 +72,7 @@ export class AppComponent implements OnInit {
   }
 
   goToWritePediaPage() {
-    let userId = sessionStorage.getItem('userId');
+    let userId = Constant.getUserId();
     if (userId) {
       this.router.navigate(['/admin/add']);
     } else {

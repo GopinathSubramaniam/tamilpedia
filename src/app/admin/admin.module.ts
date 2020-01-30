@@ -7,6 +7,7 @@ import { PrimengComponentModule } from '../modules/primeng-component.module';
 import { AdminRouterModule } from './admin-router.module';
 import { PediaAddComponent } from './pedia-add/pedia-add.component';
 import { PediaListComponent } from './pedia-list/pedia-list.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { PediaListComponent } from './pedia-list/pedia-list.component';
     AdminRouterModule,
     PrimengComponentModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule ,
+    AngularFirestoreModule,
+    ReactiveFormsModule
   ]
 })
 export class AdminModule { }
