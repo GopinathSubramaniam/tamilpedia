@@ -48,6 +48,10 @@ export class AppComponent implements OnInit {
         this.displayLoginModal = false;
         this.app.hideSpinner();
         this.router.navigate(['/']);
+      }).catch((err) => {
+        this.app.hideSpinner();
+        console.log('Login error = ', err);
+        this.app.showErrorToast(err.message);
       });
     }
   }

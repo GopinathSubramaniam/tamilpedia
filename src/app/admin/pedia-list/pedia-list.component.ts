@@ -26,7 +26,8 @@ export class PediaListComponent implements OnInit {
     this.app.showSpinner();
     let userId = Constant.getUserId();
     let whereCondition = (ref => ref.where(Constant.SESSION_VARIABLE.USER_ID, '==', userId));
-    let pediaSubscribe = this.af.collection(Constant.COLLECTION.PEDIAS, whereCondition).valueChanges().subscribe((data: any) => {
+    let pediaSubscribe = this.af.collection(Constant.COLLECTION.PEDIA_HINT, whereCondition).valueChanges().subscribe((data: any) => {
+      console.log('Pedia Data = ', data);
       this.pediaList = data;
       this.app.hideSpinner();
       pediaSubscribe.unsubscribe();

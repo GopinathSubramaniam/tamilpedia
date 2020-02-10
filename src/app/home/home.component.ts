@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TreeNode } from 'primeng/api';
 import { HomeService } from './home.service';
+import { AppService } from '../helpers/app.service';
 
 @Component({
   selector: 'app-home',
@@ -11,14 +12,20 @@ import { HomeService } from './home.service';
 export class HomeComponent implements OnInit {
 
   topics: TreeNode[];
-  constructor(private route: Router, private appSer: HomeService) { }
+  constructor(
+    private route: Router,
+    private homeService: HomeService,
+    private appService: AppService
+  ) { }
 
   ngOnInit() {
-    this.appSer.getTopics().then(res => {
-      console.log('Res = ', res);
+    this.appService.showSpinner();
+    this.homeService.getTopics().then((res: TreeNode[]) => {
+      this.appService.hideSpinner();
       this.topics = res;
     }).catch((err: any) => {
       console.log('Err = ', err);
+      this.appService.hideSpinner();
     });
   }
 

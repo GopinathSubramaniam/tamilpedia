@@ -13,7 +13,7 @@
         <a class="nav-link pointer" (click)="goToWritePediaPage()"><i class="fa fa-pencil-square-o"></i> Write Pedia</a>
       </li>
       <li class="nav-item" [ngClass]="{'active': router.url === '/admin'}">
-        <a class="nav-link" routerLink="/admin"><i class="fa fa-list"></i> Pedias</a>
+        <a class="nav-link" routerLink="/admin"><i class="fa fa-list-alt"></i> Your Pedias</a>
       </li>
       <li class="nav-item" [ngClass]="{'active': router.url === '/admin/recent'}">
         <a class="nav-link" routerLink="/"><i class="fa fa-history"></i> Recent</a>
@@ -43,7 +43,7 @@
           <a class="dropdown-item pointer" (click)="logout()"><i class="fa fa-sign-out"></i> Logout</a>
         </div>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="!displayName">
         <a class="nav-link pointer" (click)="displayLoginModal = true"><i class="fa fa-sign-in"></i> Login</a>
       </li>
     </ul>

@@ -6,6 +6,10 @@ import { DialogModule } from 'primeng/dialog';
 import { EditorModule } from 'primeng/editor';
 import { ToastModule } from 'primeng/toast';
 import { TreeModule } from 'primeng/tree';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { ListboxModule } from 'primeng/listbox';
+import { DropdownModule } from 'primeng/dropdown';
+
 
 
 @NgModule({
@@ -17,7 +21,10 @@ import { TreeModule } from 'primeng/tree';
     ButtonModule,
     DialogModule,
     CheckboxModule,
-    ToastModule
+    ToastModule,
+    AutoCompleteModule,
+    ListboxModule,
+    DropdownModule
   ],
   exports: [
     CommonModule,
@@ -26,7 +33,10 @@ import { TreeModule } from 'primeng/tree';
     ButtonModule,
     DialogModule,
     CheckboxModule,
-    ToastModule
+    ToastModule,
+    AutoCompleteModule,
+    ListboxModule,
+    DropdownModule
   ]
 })
 export class PrimengComponentModule { }

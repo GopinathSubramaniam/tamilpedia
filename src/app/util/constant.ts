@@ -1,7 +1,9 @@
 export const Constant = {
    COLLECTION: {
-      PEDIAS: 'pedias',
-      USERS: 'users'
+      PEDIA_HINT: 'pedia_hint',
+      PEDIA_MASTER: 'pedia_master',
+      USERS: 'users',
+      CATEGORIES: 'categories'
    },
    SESSION_VARIABLE: {
       USER_ID: 'userId',

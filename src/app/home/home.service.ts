@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { RestService } from '../util/rest.service';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Constant } from '../util/constant';
 
 
 @Injectable({
@@ -8,10 +10,18 @@ import { RestService } from '../util/rest.service';
 })
 export class HomeService {
 
-  constructor(private rest: RestService) { }
+  constructor(
+    private af: AngularFirestore,
+    private rest: RestService
+  ) { }
 
-  getTopics(){
-    return this.rest.get('assets/json/data/tree.json').then((res:any) => <TreeNode[]> res.data);
+  getTopics() {
+    return new Promise((resolve, reject) => {
+      let categorySubscribe = this.af.collection(Constant.COLLECTION.CATEGORIES).valueChanges().subscribe((data) => {
+        resolve(data);
+        categorySubscribe.unsubscribe();
+      });
+    });
   }
 
 }
