@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { RestService } from '../util/rest.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Constant } from '../util/constant';
+import { Constant } from '../helpers/constant';
 
 
 @Injectable({

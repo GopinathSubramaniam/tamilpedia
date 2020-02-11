@@ -14,6 +14,9 @@ export const Constant = {
    },
    getDisplayName: () => {
       return sessionStorage.getItem(Constant.SESSION_VARIABLE.DISPLAY_NAME);
+   },
+   isLoggedIn: () => {
+      return sessionStorage.hasOwnProperty(Constant.SESSION_VARIABLE.USER_ID);
    }
 
 }

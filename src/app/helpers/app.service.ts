@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { NgxSpinnerService } from "ngx-spinner";
-import { Label } from '../util/labels';
+import { Label } from './labels';
 
 @Injectable({
    providedIn: 'root'

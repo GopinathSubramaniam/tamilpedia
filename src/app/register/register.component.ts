@@ -5,8 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AppService } from '../helpers/app.service';
 import { MustMatch } from '../helpers/must-match.validator';
-import { Constant } from '../util/constant';
-import { Label } from '../util/labels';
+import { Constant } from '../helpers/constant';
+import { Label } from '../helpers/labels';
 
 
 @Component({

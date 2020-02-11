@@ -15,12 +15,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'pedia',
-    children: [
-      {
-        path: '',
-        loadChildren: './pedia/pedia.module#PediaModule',
-      }
-    ]
+    loadChildren: './pedia/pedia.module#PediaModule',
   },
   {
     path: 'admin',

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AppService } from 'src/app/helpers/app.service';
-import { Constant } from 'src/app/util/constant';
+import { Constant } from 'src/app/helpers/constant';
 import { map } from 'rxjs/operators';
 
 @Component({

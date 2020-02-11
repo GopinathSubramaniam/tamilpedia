@@ -18,29 +18,10 @@
   </nav>
 </div>
 <div class="col-sm-12">
-  <div>
-    <div><a routerLink="/pedia/detail">Express Raja</a></div>
-    <div>
-      Express Raja is a 2016 Indian Telugu-language comedy thriller film written and directed by Merlapaka Gandhi.
-      Produced by V. Vamsi Krishna Reddy and Pramod
-    </div>
-    <p><small>Last Updated: 20 September 2019, 06:28PM</small></p>
-  </div>
-  <div>
-    <div><a routerLink="/pedia/detail">Ram Mohan Roy</a></div>
-    <div>
-      Raja Ram Mohan Roy (22 May 1772 – 27 September 1833) was one of the founders of the Brahmo Sabha, the precursor of
-      the Brahmo Samaj, a social-religious
-    </div>
-    <p><small>Last Updated: 23 January 2020, 06:28PM</small></p>
-  </div>
-  <div>
-    <div><a routerLink="/pedia/detail">Ram Mohan Roy</a></div>
-    <div>
-      Raja Ram Mohan Roy (22 May 1772 – 27 September 1833) was one of the founders of the Brahmo Sabha, the precursor of
-      the Brahmo Samaj, a social-religious
-    </div>
-    <p><small>Last Updated: 23 January 2020, 06:28PM</small></p>
+  <div *ngFor="let pedia of pediaList">
+    <div><a routerLink="/pedia/detail">{{pedia.title}}</a></div>
+    <div [innerHTML]="pedia.content"></div>
+    <p><small>Last Updated: {{pedia.createdAt.miliseconds}} by {{pedia.createdBy}}</small></p>
   </div>
   <div>
     <nav aria-label="Page navigation">

@@ -31,7 +31,12 @@ export class HomeComponent implements OnInit {
 
   selectNode(data) {
     console.log('Data = ', data);
-    this.route.navigate(['/pedia']);
+    let node = data.node;
+    if (node && node.value) {
+      this.route.navigate(['/pedia/list/' + node.value]);
+    } else {
+      this.route.navigate(['/pedia']);
+    }
   }
 
 }

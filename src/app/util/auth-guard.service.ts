@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Constant } from './constant';
+import { Constant } from '../helpers/constant';
 
 @Injectable({
   providedIn: 'root'

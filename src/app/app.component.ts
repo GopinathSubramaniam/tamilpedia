@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppService } from './helpers/app.service';
-import { Constant } from './util/constant';
+import { Constant } from './helpers/constant';
 
 
 @Component({
@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   displayLoginModal: boolean = false;
   loginForm: FormGroup;
   isAdmin: boolean = false;
+  isLoggedIn: boolean = false;
   submitted = false;
   displayName: string;
 
@@ -33,6 +34,7 @@ export class AppComponent implements OnInit {
       password: ['', [Validators.required, Validators.min(6)]],
     });
     this.displayName = Constant.getDisplayName();
+    this.isLoggedIn = Constant.isLoggedIn();
   }
 
   get f() { return this.loginForm.controls; }
@@ -46,6 +48,7 @@ export class AppComponent implements OnInit {
         sessionStorage.setItem(Constant.SESSION_VARIABLE.DISPLAY_NAME, res.user.displayName);
         this.displayName = res.user.displayName;
         this.displayLoginModal = false;
+        this.isLoggedIn = true;
         this.app.hideSpinner();
         this.router.navigate(['/']);
       }).catch((err) => {
@@ -63,6 +66,7 @@ export class AppComponent implements OnInit {
       this.displayName = '';
       this.app.hideSpinner();
       this.router.navigate(['/']);
+      this.isLoggedIn = Constant.isLoggedIn();
     });
   }
 

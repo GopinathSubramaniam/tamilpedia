@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-sm-4">
         <h6>Categories</h6>
-        <p-tree [value]="topics" selectionMode="single" (onNodeSelect)="selectNode()"></p-tree>
+        <p-tree [value]="topics" selectionMode="single" (onNodeSelect)="selectNode($event)"></p-tree>
       </div>
       <div class="col-sm-8">
         <h6>Recent Topics</h6>

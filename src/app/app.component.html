@@ -12,7 +12,7 @@
       <li class="nav-item" [ngClass]="{'active': router.url === '/admin/add'}">
         <a class="nav-link pointer" (click)="goToWritePediaPage()"><i class="fa fa-pencil-square-o"></i> Write Pedia</a>
       </li>
-      <li class="nav-item" [ngClass]="{'active': router.url === '/admin'}">
+      <li class="nav-item" *ngIf="isLoggedIn" [ngClass]="{'active': router.url === '/admin'}">
         <a class="nav-link" routerLink="/admin"><i class="fa fa-list-alt"></i> Your Pedias</a>
       </li>
       <li class="nav-item" [ngClass]="{'active': router.url === '/admin/recent'}">

@@ -3,8 +3,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as firebase from 'firebase';
 import { AppService } from 'src/app/helpers/app.service';
-import { Constant } from 'src/app/util/constant';
-import { Label } from 'src/app/util/labels';
+import { Constant } from 'src/app/helpers/constant';
+import { Label } from 'src/app/helpers/labels';
 
 @Component({
   selector: 'app-pedia-add',
