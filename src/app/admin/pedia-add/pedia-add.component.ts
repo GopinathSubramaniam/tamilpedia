@@ -13,6 +13,7 @@ import { Label } from 'src/app/helpers/labels';
 })
 export class PediaAddComponent implements OnInit {
 
+  replaceList = ['a', 'of', 'is', 'an', 'are', 'was', 'where', 'there', 'they', 'those'];
   submitted: boolean = false;
   categories: any[];
   categoryFormSubmitted: boolean = false;
@@ -53,6 +54,13 @@ export class PediaAddComponent implements OnInit {
       obj.createdBy = Constant.getDisplayName();
       obj.userId = Constant.getUserId();
       obj.tags = obj.tags.split(',');
+      obj.tags.push(obj.category.toLowerCase());
+      let titles = obj.title.split(' ');
+      titles.forEach(title => {
+        let trimmedTitle = title.trim().toLowerCase();
+        if (this.replaceList.indexOf(trimmedTitle) === -1)
+          obj.tags.push(trimmedTitle);
+      });
 
       let pediaHintObj = Object.assign({}, obj);//Pedia hint object
       pediaHintObj.content = pediaHintObj.content.substring(0, 200);

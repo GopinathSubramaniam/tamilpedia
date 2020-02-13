@@ -39,7 +39,7 @@ export class ListComponent implements OnInit, OnDestroy {
     this.app.showSpinner();
     let splittedTags = this.searchText.split(',');
     let tags = [];
-    splittedTags.forEach(tag => { tags.push(tag.trim()); });
+    splittedTags.forEach(tag => { tags.push(tag.trim().toLowerCase()); });
     let whereCondition = (ref => ref.orderBy('createdAt'));
     if (tags.length > 0 && tags[0]) {
       whereCondition = (ref => ref.where('tags', 'array-contains-any', tags).limit(100));
