@@ -37,10 +37,14 @@ export class ListComponent implements OnInit, OnDestroy {
 
   searchPedias() {
     this.app.showSpinner();
-    let whereCondition = (ref => ref.orderBy('category').startAt(this.searchText));
-    /* .where('content', '>=', this.searchText)
-    .where('title', '>=', this.searchText)); */
-    let pediaSubscribe = this.af.collection(Constant.COLLECTION.PEDIA_HINT, ref => ref.orderBy('category').startAt(this.searchText)).valueChanges().subscribe((data: any) => {
+    let splittedTags = this.searchText.split(',');
+    let tags = [];
+    splittedTags.forEach(tag => { tags.push(tag.trim()); });
+    let whereCondition = (ref => ref.orderBy('createdAt'));
+    if (tags.length > 0 && tags[0]) {
+      whereCondition = (ref => ref.where('tags', 'array-contains-any', tags).limit(100));
+    }
+    let pediaSubscribe = this.af.collection(Constant.COLLECTION.PEDIA_HINT, whereCondition).valueChanges().subscribe((data: any) => {
       console.log('Pedia Data = ', data);
       this.pediaList = data;
       this.app.hideSpinner();

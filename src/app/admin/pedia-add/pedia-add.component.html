@@ -31,6 +31,14 @@
         <div *ngIf="submitted && f.category.errors" class="text-danger">
           <div *ngIf="f.category.errors.required">Category is required</div>
         </div>
+        <div class="form-group">
+          <label for="category">Tags</label>
+          <textarea type="text" class="form-control form-control-sm" formControlName="tags"
+            placeholder="Enter multiple tags with comma (Ex: kings,100000bc,200000bc)"></textarea>
+        </div>
+        <div *ngIf="submitted && f.tags.errors" class="text-danger">
+          <div *ngIf="f.tags.errors.required">Atleast one tag required</div>
+        </div>
       </div>
       <div class="col-sm-12 col-md-9">
         <div class="form-group m-0">

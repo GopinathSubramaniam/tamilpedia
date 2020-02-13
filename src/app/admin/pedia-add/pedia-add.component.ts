@@ -32,6 +32,7 @@ export class PediaAddComponent implements OnInit {
       title: ['', [Validators.required, Validators.minLength(5)]],
       category: ['', [Validators.required]],
       content: ['', [Validators.required, Validators.minLength(500)]],
+      tags: ['', [Validators.required]],
     });
 
     this.createCatForm = this.formBuilder.group({
@@ -51,6 +52,7 @@ export class PediaAddComponent implements OnInit {
       obj.createdAt = firebase.firestore.FieldValue.serverTimestamp();
       obj.createdBy = Constant.getDisplayName();
       obj.userId = Constant.getUserId();
+      obj.tags = obj.tags.split(',');
 
       let pediaHintObj = Object.assign({}, obj);//Pedia hint object
       pediaHintObj.content = pediaHintObj.content.substring(0, 200);

@@ -11,9 +11,8 @@
 <div>
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="#">Home</a></li>
-      <li class="breadcrumb-item"><a href="#">Kings</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Data</li>
+      <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+      <li class="breadcrumb-item active">{{searchText? searchText : 'Data'}}</li>
     </ol>
   </nav>
 </div>
@@ -21,7 +20,11 @@
   <div *ngFor="let pedia of pediaList">
     <div><a routerLink="/pedia/detail">{{pedia.title}}</a></div>
     <div [innerHTML]="pedia.content"></div>
-    <p><small>Last Updated: {{pedia.createdAt.miliseconds}} by {{pedia.createdBy}}</small></p>
+    <p><small>Last Updated: {{pedia.createdAt.seconds * 1000 | date: 'MMM d, y, h:mm:ss a'}} by
+        {{pedia.createdBy}}</small></p>
+  </div>
+  <div *ngIf="pediaList.length === 0" class="text-center">
+    <h6><i class="fa fa-frown-o"></i> No Records Found. Try searching with different category or keyword</h6>
   </div>
   <div>
     <nav aria-label="Page navigation">
