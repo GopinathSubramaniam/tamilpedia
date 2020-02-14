@@ -18,7 +18,7 @@
 </div>
 <div class="col-sm-12">
   <div *ngFor="let pedia of pediaList">
-    <div><a routerLink="/pedia/detail">{{pedia.title}}</a></div>
+    <div><a routerLink="/pedia/detail/{{pedia.id}}">{{pedia.title}}</a></div>
     <div [innerHTML]="pedia.content"></div>
     <p><small>Last Updated: {{pedia.createdAt.seconds * 1000 | date: 'MMM d, y, h:mm:ss a'}} by
         {{pedia.createdBy}}</small></p>

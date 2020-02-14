@@ -13,7 +13,7 @@ import { Label } from 'src/app/helpers/labels';
 })
 export class PediaAddComponent implements OnInit {
 
-  replaceList = ['a', 'of', 'is', 'an', 'are', 'was', 'where', 'there', 'they', 'those'];
+  replaceList = ['a', 'of', 'is', 'an', 'are', 'was', 'where', 'there', 'they', 'those', 'to', 'as'];
   submitted: boolean = false;
   categories: any[];
   categoryFormSubmitted: boolean = false;
@@ -53,8 +53,9 @@ export class PediaAddComponent implements OnInit {
       obj.createdAt = firebase.firestore.FieldValue.serverTimestamp();
       obj.createdBy = Constant.getDisplayName();
       obj.userId = Constant.getUserId();
-      obj.tags = obj.tags.split(',');
-      obj.tags.push(obj.category.toLowerCase());
+
+      obj.tags = obj.tags.toLowerCase().split(',');//Assigning splitted tags to "tags"
+      obj.tags.push(obj.category.toLowerCase());//Pushing category into tags
       let titles = obj.title.split(' ');
       titles.forEach(title => {
         let trimmedTitle = title.trim().toLowerCase();

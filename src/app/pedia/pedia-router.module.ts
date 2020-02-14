@@ -6,7 +6,7 @@ import { ListComponent } from './list/list.component';
 const routes: Routes = [
   { path: '', component: ListComponent },
   { path: 'list/:searchText', component: ListComponent },
-  { path: 'detail', component: DetailComponent }
+  { path: 'detail/:key', component: DetailComponent }
 ];
 
 @NgModule({

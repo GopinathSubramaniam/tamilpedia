@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Constant } from 'src/app/helpers/constant';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AppService } from 'src/app/helpers/app.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list',
@@ -44,12 +45,18 @@ export class ListComponent implements OnInit, OnDestroy {
     if (tags.length > 0 && tags[0]) {
       whereCondition = (ref => ref.where('tags', 'array-contains-any', tags).limit(100));
     }
-    let pediaSubscribe = this.af.collection(Constant.COLLECTION.PEDIA_HINT, whereCondition).valueChanges().subscribe((data: any) => {
-      console.log('Pedia Data = ', data);
-      this.pediaList = data;
-      this.app.hideSpinner();
-      pediaSubscribe.unsubscribe();
-    });
+    let pediaSubscribe = this.af.collection(Constant.COLLECTION.PEDIA_HINT, whereCondition).snapshotChanges()
+      .pipe(map(actions => actions.map((a: any) => {
+        const data = a.payload.doc.data();
+        const id = a.payload.doc.id;
+        data.id = id;
+        return data;
+      }))).subscribe((data: any) => {
+        console.log('Pedia Data = ', data);
+        this.pediaList = data;
+        this.app.hideSpinner();
+        pediaSubscribe.unsubscribe();
+      });
   }
 
 }
