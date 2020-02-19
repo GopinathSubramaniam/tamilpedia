@@ -12,6 +12,7 @@
 <div>
   <form [formGroup]="addPediaForm" (ngSubmit)="onSubmit()">
     <div class="row">
+      <input type="hidden" formControlName="id" />
       <div class="col-sm-12 col-md-3">
         <div class="form-group">
           <label for="title">Title</label>
@@ -33,7 +34,7 @@
         </div>
         <div class="form-group">
           <label for="category">Tags</label>
-          <textarea type="text" class="form-control form-control-sm" formControlName="tags"
+          <textarea type="text" rows="10" class="form-control form-control-sm" formControlName="tags"
             placeholder="Enter multiple tags with comma (Ex: kings,100000bc,200000bc)"></textarea>
         </div>
         <div *ngIf="submitted && f.tags.errors" class="text-danger">
@@ -43,7 +44,7 @@
       <div class="col-sm-12 col-md-9">
         <div class="form-group m-0">
           <label for="content">Content</label>
-          <p-editor formControlName="content" [style]="{'height':'400px'}" class="form-control-sm"></p-editor>
+          <p-editor formControlName="content" [style]="{'height':'350px'}" class="form-control-sm"></p-editor>
           <div *ngIf="submitted && f.content.errors" class="text-danger">
             <div *ngIf="f.content.errors.required">Content is required</div>
             <div *ngIf="f.content.errors.minlength">Minimum 500 characters required </div>

@@ -17,6 +17,9 @@ export const Constant = {
    },
    isLoggedIn: () => {
       return sessionStorage.hasOwnProperty(Constant.SESSION_VARIABLE.USER_ID);
+   },
+   toLowTrim(text: string) {
+      return text.toLowerCase().trim();
    }
 
 }

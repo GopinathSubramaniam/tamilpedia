@@ -1,7 +1,7 @@
 <div class="col-sm-12">
   <div class="row">
     <div class="col-sm-6">
-      <h4><i class="fa fa-book" aria-hidden="true"></i> Kings</h4>
+      <h4><i class="fa fa-book" aria-hidden="true"></i> Your Pedias</h4>
     </div>
     <div class="col-sm-6">
       <small class="pull-right">Results 1 – 20 of 33,061</small>
@@ -11,7 +11,8 @@
 <div class="col-sm-12">
 
   <div *ngFor="let pedia of pediaList">
-    <div><a routerLink="/pedia/detail">{{pedia.title}}</a></div>
+    <div><a routerLink="/pedia/detail/{{pedia.id}}">{{pedia.title}}</a>&nbsp;<i class="fa fa-pencil pointer"
+        (click)="openEditPedia(pedia.id)"></i></div>
     <p [innerHTML]="pedia.content" class="truncate"></p>
     <p><small>Last Updated: {{pedia.createdAt.nanoseconds | date: 'MMM d, yyyy, h:mm:ss a'}} - by
         {{pedia.createdBy}}</small></p>

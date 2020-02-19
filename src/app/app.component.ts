@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { AppService } from './helpers/app.service';
 import { Constant } from './helpers/constant';
-
+import { MenuService } from './helpers/menu';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +21,10 @@ export class AppComponent implements OnInit {
   submitted = false;
   displayName: string;
 
+  name: string;
+  menu: Array<any> = [];
+  breadcrumbList: Array<any> = [];
+
   constructor(
     private router: Router,
     private afAuth: AngularFireAuth,
@@ -35,6 +39,51 @@ export class AppComponent implements OnInit {
     });
     this.displayName = Constant.getDisplayName();
     this.isLoggedIn = Constant.isLoggedIn();
+    this.watchBreadCrumb();
+  }
+
+  watchBreadCrumb() {
+    this.menu = MenuService.getAllMenus();
+    this.router.events.subscribe((router: any) => {
+      if (router instanceof NavigationEnd) {
+        let routerUrl = router.urlAfterRedirects;
+        if (routerUrl && typeof routerUrl === 'string') {
+          let urls = routerUrl.split('/');
+          if (this.breadcrumbList.length === 0 || routerUrl == '/') {
+            this.breadcrumbList = [];
+            this.breadcrumbList.push({ name: 'Home', path: '' });
+          }
+          urls.forEach(url => {
+            let target: any = this.menu.find(page => {
+              return page.pathRef === url;
+            });
+            if (target && target.name && target.name.toLowerCase() !== 'home') {
+              let name = target.name;
+              let path = target.path;
+              if (name.startsWith(':') > -1) {
+                name = urls.pop();
+                name = name.charAt(0).toUpperCase() + name.substr(1);
+                path = path.replace(target.name, name);
+              }
+              let idx = 0;
+              this.breadcrumbList.forEach((ele, i) => {
+                if (ele.name == name) {
+                  idx = i;
+                }
+              });
+              if (idx === 0) {
+                this.breadcrumbList.push({ name: name, path: routerUrl });
+              } else {
+                this.breadcrumbList = this.breadcrumbList.splice(0, idx + 1);
+              }
+            }
+          });
+
+
+          let routerList = routerUrl.slice(1).split('/');
+        }
+      }
+    });
   }
 
   get f() { return this.loginForm.controls; }

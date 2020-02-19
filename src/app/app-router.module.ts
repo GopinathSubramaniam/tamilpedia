@@ -1,34 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { RegisterComponent } from './register/register.component';
-import { AuthGuardService } from './util/auth-guard.service';
+import { MenuService } from './helpers/menu';
 
-const appRoutes: Routes = [
-  {
-    path: '',
-    component: HomeComponent
-  },
-  {
-    path: 'register',
-    component: RegisterComponent
-  },
-  {
-    path: 'pedia',
-    loadChildren: './pedia/pedia.module#PediaModule',
-  },
-  {
-    path: 'admin',
-    canActivate: [AuthGuardService],
-    children: [
-      {
-        path: '',
-        loadChildren: './admin/admin.module#AdminModule',
-      }
-    ]
-  },
-  { path: '**', component: HomeComponent }
-];
+const appRoutes: Routes = MenuService.getMenu();
 
 @NgModule({
   declarations: [],

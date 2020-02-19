@@ -5,6 +5,7 @@ import { Constant } from 'src/app/helpers/constant';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AppService } from 'src/app/helpers/app.service';
 import { map } from 'rxjs/operators';
+import { PediaService } from '../pedia.service';
 
 @Component({
   selector: 'app-list',
@@ -20,7 +21,8 @@ export class ListComponent implements OnInit, OnDestroy {
   constructor(
     private af: AngularFirestore,
     private route: ActivatedRoute,
-    private app: AppService
+    private app: AppService,
+    private pediaService: PediaService
   ) { }
 
   ngOnInit() {
@@ -38,25 +40,10 @@ export class ListComponent implements OnInit, OnDestroy {
 
   searchPedias() {
     this.app.showSpinner();
-    let splittedTags = this.searchText.split(',');
-    let tags = [];
-    splittedTags.forEach(tag => { tags.push(tag.trim().toLowerCase()); });
-    let whereCondition = (ref => ref.orderBy('createdAt'));
-    if (tags.length > 0 && tags[0]) {
-      whereCondition = (ref => ref.where('tags', 'array-contains-any', tags).limit(100));
-    }
-    let pediaSubscribe = this.af.collection(Constant.COLLECTION.PEDIA_HINT, whereCondition).snapshotChanges()
-      .pipe(map(actions => actions.map((a: any) => {
-        const data = a.payload.doc.data();
-        const id = a.payload.doc.id;
-        data.id = id;
-        return data;
-      }))).subscribe((data: any) => {
-        console.log('Pedia Data = ', data);
-        this.pediaList = data;
-        this.app.hideSpinner();
-        pediaSubscribe.unsubscribe();
-      });
+    this.pediaService.searchPedias(this.searchText).then((data: any) => {
+      this.pediaList = data;
+      this.app.hideSpinner();
+    });
   }
 
 }

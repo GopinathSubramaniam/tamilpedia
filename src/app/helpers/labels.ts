@@ -3,7 +3,7 @@ export const Label = {
       REGISTER: 'Registered Successfully',
       TEXT: 'Success',
       ADD: 'Added Successfully',
-      UPDAT: 'Updated Successfully',
+      UPDATE: 'Updated Successfully',
       DELETE: 'Deleted Successfully'
    },
    ERROR: {

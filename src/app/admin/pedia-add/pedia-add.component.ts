@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import * as firebase from 'firebase';
 import { AppService } from 'src/app/helpers/app.service';
 import { Constant } from 'src/app/helpers/constant';
 import { Label } from 'src/app/helpers/labels';
+import { Editor } from 'primeng/editor';
 
 @Component({
   selector: 'app-pedia-add',
@@ -20,16 +22,22 @@ export class PediaAddComponent implements OnInit {
   addPediaForm: FormGroup;
   createCatForm: FormGroup;
   displayCreateCatModal: boolean = false;
+  pediaKey: string;
 
   constructor(
     private af: AngularFirestore,
     private formBuilder: FormBuilder,
-    private app: AppService
+    private app: AppService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
     this.getCategories();
     this.addPediaForm = this.formBuilder.group({
+      id: ['', []],
+      createdAt: ['', []],
+      createdBy: ['', []],
+      updatedAt: ['', []],
       title: ['', [Validators.required, Validators.minLength(5)]],
       category: ['', [Validators.required]],
       content: ['', [Validators.required, Validators.minLength(500)]],
@@ -39,6 +47,11 @@ export class PediaAddComponent implements OnInit {
     this.createCatForm = this.formBuilder.group({
       catValue: ['', [Validators.required, Validators.minLength(5)]],
     });
+    let paramSubscribe = this.route.paramMap.subscribe(params => {
+      this.pediaKey = params.get('id');
+      this.getPediaDetail();
+    });
+    paramSubscribe.unsubscribe();
   }
 
   get f() { return this.addPediaForm.controls; }
@@ -50,27 +63,50 @@ export class PediaAddComponent implements OnInit {
 
       this.app.showSpinner();
       let obj = this.addPediaForm.value;//Pedia master object
-      obj.createdAt = firebase.firestore.FieldValue.serverTimestamp();
-      obj.createdBy = Constant.getDisplayName();
+      if (this.pediaKey) {
+        obj.updatedAt = firebase.firestore.FieldValue.serverTimestamp();
+      } else {
+        obj.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+        obj.createdBy = Constant.getDisplayName();
+      }
       obj.userId = Constant.getUserId();
+      if (typeof obj.tags !== 'object') {
+        obj.tags = obj.tags.toLowerCase().split(',');//Assigning splitted tags to "tags"
+      }
+      let catVal = Constant.toLowTrim(obj.category);
+      if (obj.tags.indexOf(catVal) == -1) {
+        obj.tags.push(catVal);//Pushing category into tags
+      }
 
-      obj.tags = obj.tags.toLowerCase().split(',');//Assigning splitted tags to "tags"
-      obj.tags.push(obj.category.toLowerCase());//Pushing category into tags
+      //#region  Pusing titles 
       let titles = obj.title.split(' ');
       titles.forEach(title => {
-        let trimmedTitle = title.trim().toLowerCase();
-        if (this.replaceList.indexOf(trimmedTitle) === -1)
+        let trimmedTitle = Constant.toLowTrim(title);
+        if (this.replaceList.indexOf(trimmedTitle) !== -1 && obj.tags.indexOf(trimmedTitle) == -1)
           obj.tags.push(trimmedTitle);
       });
+      //#endregion
 
       let pediaHintObj = Object.assign({}, obj);//Pedia hint object
       pediaHintObj.content = pediaHintObj.content.substring(0, 200);
-      this.af.collection(Constant.COLLECTION.PEDIA_HINT).add(pediaHintObj).then((pediaHintRes: any) => {
-        console.log('pediaHintRes = ', pediaHintRes);
-        this.af.collection(Constant.COLLECTION.PEDIA_MASTER).doc(pediaHintRes.id).set(obj).then((res: any) => {
+      let promise = null;
+      if (this.pediaKey) {
+        promise = this.af.collection(Constant.COLLECTION.PEDIA_HINT).doc(this.pediaKey).set(pediaHintObj);
+      } else {
+        promise = this.af.collection(Constant.COLLECTION.PEDIA_HINT).add(pediaHintObj);
+      }
+      promise.then((pediaHintRes: any) => {
+        let key = this.pediaKey ? this.pediaKey : pediaHintRes.id;
+        this.af.collection(Constant.COLLECTION.PEDIA_MASTER).doc(key).set(obj).then((res: any) => {
           this.app.hideSpinner();
-          this.app.showSuccessToast(Label.SUCCESS.ADD);
-          this.resetForm();
+          if (this.pediaKey) {
+            this.app.showSuccessToast(Label.SUCCESS.UPDATE);
+          } else {
+            this.app.showSuccessToast(Label.SUCCESS.ADD);
+          }
+          if (!this.pediaKey) {
+            this.resetForm();
+          }
         });
       });
     }
@@ -113,6 +149,16 @@ export class PediaAddComponent implements OnInit {
     let catSubscribe = this.af.collection(Constant.COLLECTION.CATEGORIES).valueChanges().subscribe((data) => {
       this.categories = data;
       catSubscribe.unsubscribe();
+      this.app.hideSpinner();
+    });
+  }
+
+  getPediaDetail() {
+    this.app.showSpinner();
+    this.af.collection(Constant.COLLECTION.PEDIA_MASTER).doc(this.pediaKey).get().toPromise().then((res) => {
+      let obj = res.data();
+      obj.id = res.id;
+      this.addPediaForm.patchValue(obj);
       this.app.hideSpinner();
     });
   }

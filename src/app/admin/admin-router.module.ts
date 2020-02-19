@@ -1,12 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PediaAddComponent } from './pedia-add/pedia-add.component';
-import { PediaListComponent } from './pedia-list/pedia-list.component';
+import { MenuService } from '../helpers/menu';
 
-const routes: Routes = [
-  { path: '', component: PediaListComponent },
-  { path: 'add', component: PediaAddComponent }
-];
+const routes: Routes = MenuService.getAdminMenu();
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

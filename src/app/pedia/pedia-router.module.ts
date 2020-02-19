@@ -1,13 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DetailComponent } from './detail/detail.component';
-import { ListComponent } from './list/list.component';
+import { MenuService } from '../helpers/menu';
 
-const routes: Routes = [
-  { path: '', component: ListComponent },
-  { path: 'list/:searchText', component: ListComponent },
-  { path: 'detail/:key', component: DetailComponent }
-];
+const routes: Routes = MenuService.getPediaMenu();
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
