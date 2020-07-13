@@ -1,0 +1,35 @@
+<div class="modal fade" id="addCategoryModal" tabindex="-1" role="dialog" aria-labelledby="addCategoryModal" aria-hidden="true">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<form id="addCategoryForm">
+				<div class="modal-header">
+					<h5 class="modal-title">
+						<i class="ik ik-plus-circle"></i> Create Category
+					</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="">Select Category</label> <input type="text" class="form-control" name="name" placeholder="Category Name" />
+					</div>
+					<div class="form-group">
+						<label for="">Select Category</label> <select class="form-control select2" name="parentCategoryId">
+							<option value="">--Select--</option> <% _.each(cats, (cat) => { %>
+							<option value="<%= cat.id %>"><%= cat.path%></option> <% }); %>
+						</select>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-secondary" id="addCategory">
+						<i class="ik ik-check-circle"></i> Save
+					</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">
+						<i class="ik ik-x-circle"></i> Close
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

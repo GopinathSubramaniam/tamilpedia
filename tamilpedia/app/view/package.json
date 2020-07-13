@@ -1,0 +1,18 @@
+{
+  "name": "Tamilpedia",
+  "version": "1.0.0",
+  "description": "Tamilpedia",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "backbone": "1.4.0",
+    "backbone.localstorage": "1.1.16",
+    "requirejs": "2.3.6",
+    "requirejs-text": "2.0.15",
+    "underscore": "1.10.2"
+  }
+}
