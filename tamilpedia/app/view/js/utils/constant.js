@@ -46,11 +46,14 @@ define([ "jquery", "underscore", "backbone", "summerNote", "models/bbmodel"],
 			var api = new BBModel({url: this.url.get_category});
 			return api.fetch();
 		},
+		layout: {
+		    child: "#childContent"
+		},
 		
 		url: {
 				"get_category": "/api/category/all",
 				"post_category": "/api/category/create"
-		}
+		},
 		
 	});
 	

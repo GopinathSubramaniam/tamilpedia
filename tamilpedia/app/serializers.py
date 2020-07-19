@@ -12,11 +12,6 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = '__all__'
 
-    def list(self):
-        data = User.objects.all()
-        ser = UserSerializer(data, many=True)
-        return ser.data
-
 
 class LoginSerializer(serializers.ModelSerializer):
     class Meta:

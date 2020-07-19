@@ -21,17 +21,12 @@ define([
 		render: function(){
 			console.log("Landing Page");
 			this.$el.html(this.template());
-			new SidebarView();
+//			new SidebarView();
 			new HeaderView();
-			this.bindJQueryFunctions();
+//			this.bindJQueryFunctions();
 			return this;
 		},
-		setContent: function(view){
-			if(this.view) this.view.close();
-			this.view = view;
-			this.view.$el.html(view);
-		},
-		
+
 		bindJQueryFunctions: () => {
 			var appSideBar = $(".app-sidebar"),
 				sidebarContent = $(".sidebar-content"),

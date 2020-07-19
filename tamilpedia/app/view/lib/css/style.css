@@ -1,5 +1,28 @@
-@charset "ISO-8859-1";
-
 .pointer {
-	cursor: pointer;
+  cursor: pointer;
 }
+
+@media only screen and (max-width: 1023px) {
+  .wrapper .page-wrap .app-sidebar .sidebar-header .nav-toggle {
+    display: inline;
+  }
+}
+.wrapper .page-wrap .main-content {
+  padding-left: 0px;
+}
+
+.home .card-title {
+  color: white;
+}
+.home .card-text {
+  color: white;
+}
+.home .card-content {
+  color: white;
+}
+
+.color-white {
+  color: white;
+}
+
+/*# sourceMappingURL=style.css.map */

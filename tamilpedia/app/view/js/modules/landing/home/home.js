@@ -1,4 +1,4 @@
-define([ 'jquery', 'underscore', 'backbone', 'text!./dashboard.html', ],
+define([ 'jquery', 'underscore', 'backbone', 'text!./home.html', ],
 		function($, _, Backbone, dashboardTemplate) {
 			'use strict';
 			var app = null;

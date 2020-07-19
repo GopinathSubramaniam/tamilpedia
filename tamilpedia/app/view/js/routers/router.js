@@ -1,9 +1,10 @@
 define([ 'jquery', "underscore", 'backbone', 'utils/constant', 'modules/header/header-view',
-		'modules/footer/footer-view', 'modules/landing/dashboard/dashboard-view', 'modules/login/login-view',
+		'modules/footer/footer-view', 'modules/landing/home/home', 'modules/login/login-view',
 		'modules/register/register-view', 'modules/landing/landing-view', 'modules/landing/category/category',
-		'modules/landing/article/list',  'modules/landing/article/create'], 
-		function($, _, Backbone, Constant, HeaderView, FooterView, DashboardView, LoginView, RegisterView,
-		LandingView, CategoriesView, ArticleListView, CreateArticlesView) {
+		'modules/landing/article/list',  'modules/landing/article/create', 'modules/landing/article/detail',
+		'modules/landing/profile/profile'],
+		function($, _, Backbone, Constant, HeaderView, FooterView, HomeView, LoginView, RegisterView,
+		LandingView, CategoriesView, ArticleListView, CreateArticlesView, ArticleDetail, ProfileView) {
 	'use strict';
 
 	var footerElem = $("#footerContent");
@@ -18,7 +19,9 @@ define([ 'jquery', "underscore", 'backbone', 'utils/constant', 'modules/header/h
 			'register' : 'registerPage',
 			'articles' : 'articlesPage',
 			'articles/create' : 'createArticles',
+			'articles/detail' : 'articleDetail',
 			'categories' : 'categoriesPage',
+			'profile' : 'profilePage',
 		},
 		before : function(route, params) {
 			if (freeRoutes.indexOf(route) == -1) {
@@ -49,7 +52,7 @@ define([ 'jquery', "underscore", 'backbone', 'utils/constant', 'modules/header/h
 		},
 		dashboardPage : function() {
 			console.log("Dashboard");
-			this.dashboardView = new DashboardView();
+			this.homeView = new HomeView();
 		},
 		categoriesPage : function() {
 			console.log("Categories");
@@ -61,6 +64,13 @@ define([ 'jquery', "underscore", 'backbone', 'utils/constant', 'modules/header/h
 		},
 		createArticles: function(){
 			this.createArticlesView = new CreateArticlesView();
+		},
+		articleDetail: function(){
+		    this.articleDetail = new ArticleDetail();
+		},
+		profilePage: function(){
+		    var elem = $(app.layout.child);
+		    this.profilePage = new ProfileView({el: elem});
 		}
 	});
 	var router = new Router();
