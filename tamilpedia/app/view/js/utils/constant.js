@@ -1,5 +1,5 @@
-define([ "jquery", "underscore", "backbone", "summerNote", "models/bbmodel"],
-		function($, _, Backbone, summernote, BBModel) {
+define([ "jquery", "underscore", "backbone", "models/bbmodel"],
+		function($, _, Backbone, BBModel) {
 	"use strict";
 	
 	var Constant = Backbone.View.extend({
@@ -35,13 +35,13 @@ define([ "jquery", "underscore", "backbone", "summerNote", "models/bbmodel"],
 			view.delegateEvents();
 		},
 		
-		summerNote: function(identifier, height = 300, tabsize = 2) {
+		/*summerNote: function(identifier, height = 300, tabsize = 2) {
 			return $(identifier).summernote({
 				height : height,
 				tabsize : tabsize
 			});
-		},
-		
+		},*/
+
 		getCategories: function(){
 			var api = new BBModel({url: this.url.get_category});
 			return api.fetch();
@@ -54,7 +54,47 @@ define([ "jquery", "underscore", "backbone", "summerNote", "models/bbmodel"],
 				"get_category": "/api/category/all",
 				"post_category": "/api/category/create"
 		},
-		
+
+		executeJqueryDep: function(){
+		   // Mobile dropdown
+            $('.has-dropdown>a').on('click', function() {
+                $(this).parent().toggleClass('active');
+            });
+
+            // Aside Nav
+            $(document).click(function(event) {
+                if (!$(event.target).closest($('#nav-aside')).length) {
+                    if ( $('#nav-aside').hasClass('active') ) {
+                        $('#nav-aside').removeClass('active');
+                        $('#nav').removeClass('shadow-active');
+                    } else {
+                        if ($(event.target).closest('.aside-btn').length) {
+                            $('#nav-aside').addClass('active');
+                            $('#nav').addClass('shadow-active');
+                        }
+                    }
+                }
+            });
+
+            $('.nav-aside-close').on('click', function () {
+                $('#nav-aside').removeClass('active');
+                $('#nav').removeClass('shadow-active');
+            });
+
+
+            $('.search-btn').on('click', function() {
+                $('#nav-search').toggleClass('active');
+            });
+
+            $('.search-close').on('click', function () {
+                $('#nav-search').removeClass('active');
+            });
+
+            // Parallax Background
+            $.stellar({
+                responsive: true
+            });
+		}
 	});
 	
 	return Constant;

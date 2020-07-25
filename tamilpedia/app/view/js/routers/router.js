@@ -44,11 +44,11 @@ define([ 'jquery', "underscore", 'backbone', 'utils/constant', 'modules/header/h
 
 		loginPage : function() {
 			console.log("Login");
-			this.loginView = new LoginView({el : mainElem});
+			this.loginView = new LoginView({el : $("#mainContent")});
 		},
 		registerPage : function() {
 			console.log("Register");
-			this.registerView = new RegisterView({el : mainElem});
+			this.registerView = new RegisterView({el : $("#mainContent")});
 		},
 		dashboardPage : function() {
 			console.log("Dashboard");

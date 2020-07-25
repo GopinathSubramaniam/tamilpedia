@@ -6,16 +6,15 @@ require.config({
          exports: "_"
       },
       backbone: {
-         deps : ["jquery", "underscore"],
+         deps : ["jquery", "jqueryStellar", "underscore"],
          exports: "Backbone"
       },
       backboneLocalstorage:{
          deps: ["backbone"],
          exports: "Store"
       },
-      popper: ["jquery"],
       bootstrap: {
-    	  deps: ["popper", "moment"],
+    	  deps: ["jquery"],
     	  exports: "Bootstrap"
       },
       treeview: ["jquery", "bootstrap"],
@@ -26,40 +25,25 @@ require.config({
       parser: ["language"],
       emitter: ["parser"],
       emitterBidi: ["emitter"],
-      app: ["underscore", "backbone", "bootstrap", "treeview", "messagestore", "emitterBidi"],
-      summerNote: ["jquery", "bootstrap"]
-   },
-   map: {
-	    "*": {
-	      "popper.js": "popper"
-	    }
+      app: ["underscore", "backbone", "bootstrap", "messagestore", "emitterBidi"],
    },
    paths: {
-      jquery: "../lib/js/plugins/jquery/jquery-3.3.1.min",
+      jquery: "../lib/js/jquery.min",
+      bootstrap: "../lib/js/bootstrap.min",
+      jqueryStellar: "../lib/js/jquery.stellar.min",
       underscore: "../node_modules/underscore/underscore",
       backbone: "../node_modules/backbone/backbone",
-      backboneLocalstorage: "../node_modules/backbone.localstorage/backbone.localStorage",
+      backboneLocalStorage: "../node_modules/backbone.localstorage/backbone.localStorage",
       text: "../node_modules/requirejs-text/text",
-      popper: "../lib/js/plugins/popper.js/dist/umd/popper.min",
-      bootstrap: "../lib/js/plugins/bootstrap/dist/js/bootstrap.min",
-      scrollBar: "../lib/js/plugins/perfect-scrollbar/dist/perfect-scrollbar.min",
-      screenFull: "../lib/js/plugins/screenfull/dist/screenfull",
-      jqueryDataTable: "../lib/js/plugins/datatables.net/js/jquery.dataTables.min",
-      bootDataTable: "../lib/js/plugins/datatables.net-bs4/js/dataTables.bootstrap4.min",
-      dataTableRes: "../lib/js/plugins/datatables.net-responsive/js/dataTables.responsive.min",
-      bootDataTableRes: "../lib/js/plugins/datatables.net-responsive-bs4/js/responsive.bootstrap4.min",
-      moment: "../lib/js/plugins/moment/moment",
       treeview: "../lib/js/plugins/tree/gijgo.min",
-      i18n: "../lib/js/plugins/i18n/jquery.i18n.min",
-      messagestore: "../lib/js/plugins/i18n/jquery.i18n.messagestore.min",
-      fallbacks: "../lib/js/plugins/i18n/jquery.i18n.fallbacks.min",
-      language: "../lib/js/plugins/i18n/jquery.i18n.language.min",
-      parser: "../lib/js/plugins/i18n/jquery.i18n.parser.min",
-      emitter: "../lib/js/plugins/i18n/jquery.i18n.emitter.min",
-      emitterBidi: "../lib/js/plugins/i18n/jquery.i18n.emitter.bidi.min",
-      summerNote: "../lib/js/plugins/summernote/dist/summernote-bs4.min",
-      theme: "../lib/js/dist/js/theme.min",
-      app: "app",
+      i18n: "../lib/js/i18n/jquery.i18n.min",
+      messagestore: "../lib/js/i18n/jquery.i18n.messagestore.min",
+      fallbacks: "../lib/js/i18n/jquery.i18n.fallbacks.min",
+      language: "../lib/js/i18n/jquery.i18n.language.min",
+      parser: "../lib/js/i18n/jquery.i18n.parser.min",
+      emitter: "../lib/js/i18n/jquery.i18n.emitter.min",
+      emitterBidi: "../lib/js/i18n/jquery.i18n.emitter.bidi.min",
+      app: "app"
    }
 });
 
