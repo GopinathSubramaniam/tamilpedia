@@ -1,4 +1,4 @@
-define([ "jquery", "underscore", "backbone", "text!./category.html", "text!../../modals/category.html", "models/bbmodel", "./list" ], 
+define([ "jquery", "underscore", "backbone", "text!./category.html", "text!../../modals/category.html", "pages/models/bbmodel", "./list" ],
 		function($, _, Backbone, categoryTemplate, createCategoryModal, BBModel, CategoryListView) {
 	"use strict";
 	

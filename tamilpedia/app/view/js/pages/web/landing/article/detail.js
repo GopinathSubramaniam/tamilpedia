@@ -1,4 +1,4 @@
-define([ "jquery", "underscore", "backbone", "text!./templates/detail.html", "models/bbmodel"],
+define([ "jquery", "underscore", "backbone", "text!./templates/detail.html", "../../../models/bbmodel"],
 		function($, _, Backbone, detailTemplate, BBModel) {
 			"use strict";
 

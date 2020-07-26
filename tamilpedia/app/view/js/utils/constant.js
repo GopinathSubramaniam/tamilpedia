@@ -1,4 +1,4 @@
-define([ "jquery", "underscore", "backbone", "models/bbmodel"],
+define([ "jquery", "underscore", "backbone", "../pages/models/bbmodel"],
 		function($, _, Backbone, BBModel) {
 	"use strict";
 	

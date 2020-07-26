@@ -17,6 +17,10 @@ require.config({
     	  deps: ["jquery"],
     	  exports: "Bootstrap"
       },
+      jqueryStellar: {
+        deps: ["jquery"],
+        exports: "$"
+      },
       treeview: ["jquery", "bootstrap"],
       i18n: ["jquery"],
       messagestore: ["i18n"],

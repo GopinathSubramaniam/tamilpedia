@@ -1,31 +1,32 @@
-define([ 'jquery', "underscore", 'backbone', 'utils/constant', 'modules/header/header-view',
-		'modules/footer/footer-view', 'modules/landing/home/home', 'modules/login/login-view',
-		'modules/register/register-view', 'modules/landing/landing-view', 'modules/landing/category/category',
-		'modules/landing/article/list',  'modules/landing/article/create', 'modules/landing/article/detail',
-		'modules/landing/profile/profile'],
-		function($, _, Backbone, Constant, HeaderView, FooterView, HomeView, LoginView, RegisterView,
-		LandingView, CategoriesView, ArticleListView, CreateArticlesView, ArticleDetail, ProfileView) {
+define([ 'jquery', "underscore", 'backbone', 'utils/constant', 'pages/web/header/header-view',
+		'pages/web/footer/footer-view', 'pages/web/landing/home/home', 'pages/web/landing/landing-view',
+		'pages/web/landing/category/category', 'pages/web/landing/article/list', 'pages/web/landing/article/create',
+		'pages/web/landing/article/detail', 'pages/web/landing/profile/profile',
+		'pages/admin/login/login', 'pages/admin/register/register'],
+		function($, _, Backbone, Constant, HeaderView, FooterView, HomeView, WebLandingView, CategoriesView, ArticleListView,
+		CreateArticlesView, ArticleDetail, ProfileView, AdminLoginView, AdminRegisterView) {
 	'use strict';
 
 	var footerElem = $("#footerContent");
-	var mainElem = $("#mainContent");
 	var freeRoutes = [ "login", "register" ];
 
 	var Router = Backbone.Router.extend({
 
 		routes : {
-			'' : 'dashboardPage',
-			'login' : 'loginPage',
-			'register' : 'registerPage',
-			'articles' : 'articlesPage',
-			'articles/create' : 'createArticles',
+			'' : 'home',
+			'articles' : 'articles',
+			'articles/create' : 'createArticle',
 			'articles/detail' : 'articleDetail',
-			'categories' : 'categoriesPage',
-			'profile' : 'profilePage',
+			'admin': 'adminHome',
+			'admin/login' : 'adminLogin',
+			'admin/register' : 'adminRegister',
+			'admin/profile' : 'adminProfile',
+			'admin/categories' : 'adminCategories',
+
 		},
 		before : function(route, params) {
 			if (freeRoutes.indexOf(route) == -1) {
-				if (!this.landingView) this.landingView = new LandingView();
+				if (!this.landingView) this.landingView = new WebLandingView();
 			}
 			return false;
 		},
@@ -39,27 +40,31 @@ define([ 'jquery', "underscore", 'backbone', 'utils/constant', 'modules/header/h
 			this.footerView = new FooterView({
 				el : footerElem
 			});
-			this.landingView = new LandingView();
+			this.landingView = new WebLandingView();
 		},
 
-		loginPage : function() {
+		adminLogin : function() {
 			console.log("Login");
-			this.loginView = new LoginView({el : $("#mainContent")});
+			this.loginView = new AdminLoginView({el : $("#mainContent")});
 		},
-		registerPage : function() {
+		adminRegister : function() {
 			console.log("Register");
-			this.registerView = new RegisterView({el : $("#mainContent")});
+			this.registerView = new AdminRegisterView({el : $("#mainContent")});
 		},
-		dashboardPage : function() {
-			console.log("Dashboard");
-			this.homeView = new HomeView();
-		},
-		categoriesPage : function() {
+		adminCategories : function() {
 			console.log("Categories");
 			this.categoriesView = new CategoriesView();
 		},
-		articlesPage : function() {
-			console.log("articlesPage");
+		adminProfile: function(){
+		    var elem = $(app.layout.child);
+		    this.profilePage = new ProfileView({el: elem});
+		},
+		home : function() {
+			console.log("Dashboard");
+			this.homeView = new HomeView();
+		},
+		articles : function() {
+			console.log("articles");
 			this.articleListView = new ArticleListView();
 		},
 		createArticles: function(){
@@ -68,10 +73,7 @@ define([ 'jquery', "underscore", 'backbone', 'utils/constant', 'modules/header/h
 		articleDetail: function(){
 		    this.articleDetail = new ArticleDetail();
 		},
-		profilePage: function(){
-		    var elem = $(app.layout.child);
-		    this.profilePage = new ProfileView({el: elem});
-		}
+
 	});
 	var router = new Router();
 	Backbone.history.start();
