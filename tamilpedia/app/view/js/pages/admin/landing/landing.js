@@ -4,7 +4,8 @@ define([
 	'backbone',
 	'text!./landing.html',
 	'../header/header-view',
-    ], function($, _, Backbone, landingTemplate, HeaderView){
+	'../footer/footer-view',
+], function ($, _, Backbone, landingTemplate, AdminHeaderView, AdminFooterView){
 	'use strict';
 	
 	var LandingView = Backbone.View.extend({
@@ -17,7 +18,8 @@ define([
 		},
 		render: function(){
 			this.$el.html(this.template());
-			new HeaderView();
+			new AdminHeaderView();
+			new AdminFooterView();
 			return this;
 		},
 

@@ -7,7 +7,7 @@ define([
 	'use strict';
 	
 	var FooterView = Backbone.View.extend({
-		el : '#mainContent',
+		el : '#footerContent',
 		template: _.template(footerTemplate),
 		events: {},
 		initialize: function () {

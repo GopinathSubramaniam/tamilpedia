@@ -10,8 +10,6 @@ define([ 'jquery', 'underscore', 'backbone', 'text!./home.html', ''],
 				},
 
 				render : function() {
-				var elem = $('#childContent');
-				    console.log('Home view = ', elem);
 					this.$el.html(this.template());
 					app.executeJqueryDep();
 					return this;

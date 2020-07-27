@@ -1,82 +1,110 @@
-define([ 'jquery', "underscore", 'backbone', 'utils/constant', 'pages/web/header/header-view',
-		'pages/web/footer/footer-view', 'pages/web/landing/home/home', 'pages/web/landing/landing-view',
-		'pages/web/landing/category/category', 'pages/web/landing/article/list', 'pages/web/landing/article/create',
-		'pages/web/landing/article/detail', 'pages/web/landing/profile/profile',
-		'pages/admin/login/login', 'pages/admin/register/register'],
-		function($, _, Backbone, Constant, HeaderView, FooterView, HomeView, WebLandingView, CategoriesView, ArticleListView,
-		CreateArticlesView, ArticleDetail, ProfileView, AdminLoginView, AdminRegisterView) {
-	'use strict';
+define(['jquery', 'underscore', 'backbone', 'utils/constant',
+    'pages/web/landing/home/home',
+    'pages/web/landing/landing-view',
+    'pages/web/landing/category/category',
+    'pages/web/landing/article/list',
+    'pages/web/landing/article/create',
+    'pages/web/landing/article/detail',
+    'pages/web/landing/profile/profile',
 
-	var footerElem = $("#footerContent");
-	var freeRoutes = [ "login", "register" ];
+    'pages/admin/login/login',
+    'pages/admin/register/register',
+    'pages/admin/landing/landing',
+    'pages/admin/landing/article/list',
+    'pages/admin/landing/article/detail'],
+    function ($, _, Backbone, Constant,
+        HomeView,
+        WebLandingView,
+        CategoriesView,
+        ArticleList,
+        CreateArticlesView,
+        ArticleDetail,
+        ProfileView,
 
-	var Router = Backbone.Router.extend({
+        AdminLoginView,
+        AdminRegisterView,
+        AdminLandingView,
+        AdminArticleList,
+        AdminArticleDetail
+    ) {
 
-		routes : {
-			'' : 'home',
-			'articles' : 'articles',
-			'articles/create' : 'createArticle',
-			'articles/detail' : 'articleDetail',
-			'admin': 'adminHome',
-			'admin/login' : 'adminLogin',
-			'admin/register' : 'adminRegister',
-			'admin/profile' : 'adminProfile',
-			'admin/categories' : 'adminCategories',
+        'use strict';
 
-		},
-		before : function(route, params) {
-			if (freeRoutes.indexOf(route) == -1) {
-				if (!this.landingView) this.landingView = new WebLandingView();
-			}
-			return false;
-		},
-		after : function(route, params) {
-			if (freeRoutes.indexOf(route) > -1) {
-				this.landingView = null;
-			}
-		},
-		initialize : function() {
-			app = new Constant();// Initializing the global variables and methods
-			this.footerView = new FooterView({
-				el : footerElem
-			});
-			this.landingView = new WebLandingView();
-		},
+        var freeRoutes = ['login', 'register'];
+        var Router = Backbone.Router.extend({
 
-		adminLogin : function() {
-			console.log("Login");
-			this.loginView = new AdminLoginView({el : $("#mainContent")});
-		},
-		adminRegister : function() {
-			console.log("Register");
-			this.registerView = new AdminRegisterView({el : $("#mainContent")});
-		},
-		adminCategories : function() {
-			console.log("Categories");
-			this.categoriesView = new CategoriesView();
-		},
-		adminProfile: function(){
-		    var elem = $(app.layout.child);
-		    this.profilePage = new ProfileView({el: elem});
-		},
-		home : function() {
-			console.log("Dashboard");
-			this.homeView = new HomeView();
-		},
-		articles : function() {
-			console.log("articles");
-			this.articleListView = new ArticleListView();
-		},
-		createArticles: function(){
-			this.createArticlesView = new CreateArticlesView();
-		},
-		articleDetail: function(){
-		    this.articleDetail = new ArticleDetail();
-		},
+            routes: {
+                '': 'home',
+                'articles': 'articles',
+                'articles/create': 'createArticle',
+                'articles/detail': 'articleDetail',
+                'articles/list': 'articleList',
+                'admin/articles': 'adminArticles',
+                'admin/login': 'adminLogin',
+                'admin/register': 'adminRegister',
+                'admin/profile': 'adminProfile',
+                'admin/categories': 'adminCategories',
+                'admin/articles/detail/:id': 'adminArticlesDetail',
 
-	});
-	var router = new Router();
-	Backbone.history.start();
-//    Backbone.history.start({ pushState: true });
-	return router;
-});
+            },
+            before: function (route, params) {
+                if (!this.landingView) {
+                    console.log('Route = ', route);
+                    if (freeRoutes.indexOf(route) == -1 && route.indexOf('admin') > -1) {
+                        this.landingView = new AdminLandingView();
+                    } else {
+                        this.landingView = new WebLandingView();
+                    }
+                }
+                return false;
+            },
+            after: function (route, params) {
+                if (freeRoutes.indexOf(route) > -1) {
+                    this.landingView = null;
+                }
+            },
+            initialize: function () {
+                app = new Constant();// Initializing the global variables and methods
+                //this.landingView = new WebLandingView();
+            },
+            // Admin functions
+            adminLogin: function () {
+                this.loginView = new AdminLoginView({ el: $('#mainContent') });
+            },
+            adminRegister: function () {
+                this.registerView = new AdminRegisterView({ el: $('#mainContent') });
+            },
+            adminCategories: function () {
+                this.categoriesView = new CategoriesView();
+            },
+            adminProfile: function () {
+                var elem = $(app.layout.child);
+                this.profilePage = new ProfileView({ el: elem });
+            },
+            adminArticles: function () {
+                console.log('Admin Articles');
+                this.adminArticleList = new AdminArticleList();
+            },
+            adminArticlesDetail: function () {
+                console.log('Admin Articles Detail');
+                this.adminArticleDetail = new AdminArticleDetail();
+            },
+
+            // User functions
+            articles: function () {
+                console.log('articles');
+                this.articleList = new ArticleList();
+            },
+            createArticles: function () {
+                this.createArticlesView = new CreateArticlesView();
+            },
+            articleDetail: function () {
+                this.articleDetail = new ArticleDetail();
+            },
+            
+        });
+        var router = new Router();
+        Backbone.history.start();
+        //    Backbone.history.start({ pushState: true });
+        return router;
+    });
