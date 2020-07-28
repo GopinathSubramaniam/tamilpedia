@@ -3,8 +3,8 @@ define([
 	'underscore',
 	'backbone',
 	'text!./landing.html',
-	'../header/header-view',
-	'../footer/footer-view',
+	'../header/header',
+	'../footer/footer',
     ], function($, _, Backbone, landingTemplate, HeaderView, FooterView){
 	'use strict';
 	
@@ -21,6 +21,7 @@ define([
 			this.$el.html(this.template());
 			new HeaderView();
 			new FooterView();
+			
 			return this;
 		},
 

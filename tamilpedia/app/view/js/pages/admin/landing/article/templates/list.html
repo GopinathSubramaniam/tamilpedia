@@ -1,49 +1,48 @@
-<div class="section">
+<div class="section pt-10">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 section-row">
+                <div class="pb-10">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <i class="fa fa-thumbs-up"></i> 10
+                                </div>
+                                <div class="col-md-2">
+                                    <i class="fa fa-comment"></i> 10
+                                </div>
+                                <div class="col-md-2">
+                                    <i class="fa fa-share-square-o"></i> 10
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <a class="btn btn-primary" href="#/admin/articles/create"><i class="fa fa-plus"></i> Create Article</a>
+                        </div>
+                    </div>
+                </div>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>Title</th>
-                                <th>Categories</th>
+                                <th class="width-25rem">Category</th>
+                                <th class="width-4rem">Likes</th>
+                                <th class="width-4rem">Comments</th>
+                                <th class="width-4rem">Shares</th>
                                 <th style="width: 20rem;">Date</th>
-                                <th style="width: 13rem;">Actions</th>
+                                <th style="width: 13rem; ">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>History of India</td>
-                                <td>History, Kings</td>
-                                <td>12/12/2020 12:12 PM</td>
-                                <td>
-                                    <button class="btn btn-primary btn-xs"> <i class="fa fa-pencil"></i> Edit</button>
-                                    <button class="btn btn-danger btn-xs"> <i class="fa fa-trash"></i> Delete</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>History of India</td>
-                                <td>History, Kings</td>
-                                <td>12/12/2020 12:12 PM</td>
-                                <td>
-                                    <button class="btn btn-primary btn-xs"> <i class="fa fa-pencil"></i> Edit</button>
-                                    <button class="btn btn-danger btn-xs"> <i class="fa fa-trash"></i> Delete</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>History of India</td>
-                                <td>History, Kings</td>
-                                <td>12/12/2020 12:12 PM</td>
-                                <td>
-                                    <button class="btn btn-primary btn-xs"> <i class="fa fa-pencil"></i> Edit</button>
-                                    <button class="btn btn-danger btn-xs"> <i class="fa fa-trash"></i> Delete</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>History of India</td>
-                                <td>History, Kings</td>
-                                <td>12/12/2020 12:12 PM</td>
+                            <tr class="pointer">
+                                <td class="tbl-col">History of India</td>
+                                <td class="tbl-col">History->Kings</td>
+                                <td class="tbl-col">10</td>
+                                <td class="tbl-col">6</td>
+                                <td class="tbl-col">2</td>
+                                <td class="tbl-col">12/12/2020 12:12 PM</td>
                                 <td>
                                     <button class="btn btn-primary btn-xs"> <i class="fa fa-pencil"></i> Edit</button>
                                     <button class="btn btn-danger btn-xs"> <i class="fa fa-trash"></i> Delete</button>
@@ -56,3 +55,12 @@
         </div>
     </div>
 </div>
+<style>
+    .width-4rem {
+        width: 4rem;
+    }
+
+    .width-25rem {
+        width: 25rem;
+    }
+</style>

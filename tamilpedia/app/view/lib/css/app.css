@@ -1,18 +1,60 @@
+.btn {
+  border-radius: 0px;
+}
+.btn.btn-secondary {
+  background-color: #6c757d !important;
+  border-color: #6c757d;
+  color: white;
+}
+
+.breadcrumb-item a {
+  color: #ee4266;
+}
+.breadcrumb-item.active {
+  color: #777;
+}
+
+/** Padding CSS*/
 .pt-10 {
-  padding-top: 10rem;
+  padding-top: 10px;
+}
+
+.pb-10 {
+  padding-bottom: 10px;
 }
 
 .panel {
   border-radius: 0px;
 }
 
-footer#footer.admin-footer {
-  padding-top: 40px;
+.pointer {
+  cursor: pointer;
+}
+
+#nav-aside {
+  z-index: 2000;
+}
+
+#nav:after {
+  z-index: 501;
 }
 
 .admin-child table thead {
   background-color: #1b1c1e;
   color: white;
+}
+
+.admin-header .nav-btns > button {
+  line-height: 0px !important;
+}
+
+.admin-footer #footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 /*# sourceMappingURL=app.css.map */

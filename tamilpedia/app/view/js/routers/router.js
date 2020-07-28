@@ -1,44 +1,45 @@
 define(['jquery', 'underscore', 'backbone', 'utils/constant',
-    'pages/web/landing/home/home',
     'pages/web/landing/landing-view',
-    'pages/web/landing/category/category',
     'pages/web/landing/article/list',
-    'pages/web/landing/article/create',
     'pages/web/landing/article/detail',
     'pages/web/landing/profile/profile',
 
     'pages/admin/login/login',
     'pages/admin/register/register',
     'pages/admin/landing/landing',
+    'pages/admin/landing/article/create',
     'pages/admin/landing/article/list',
-    'pages/admin/landing/article/detail'],
+    'pages/admin/landing/article/detail',
+    'pages/admin/landing/category/list'],
     function ($, _, Backbone, Constant,
-        HomeView,
         WebLandingView,
-        CategoriesView,
         ArticleList,
-        CreateArticlesView,
         ArticleDetail,
         ProfileView,
 
-        AdminLoginView,
-        AdminRegisterView,
-        AdminLandingView,
+        AdminLogin,
+        AdminRegister,
+        AdminLanding,
+        AdminArticleCreate,
         AdminArticleList,
-        AdminArticleDetail
+        AdminArticleDetail,
+        AdminCategoryList
     ) {
 
         'use strict';
 
-        var freeRoutes = ['login', 'register'];
+        var freeRoutes = ['admin/login', 'admin/register'];
+        var currentRole = null;
+
         var Router = Backbone.Router.extend({
 
             routes: {
-                '': 'home',
+                '': 'articles',
                 'articles': 'articles',
                 'articles/create': 'createArticle',
-                'articles/detail': 'articleDetail',
+                'articles/detail/:id': 'articleDetail',
                 'articles/list': 'articleList',
+                'admin/articles/create': 'adminArticlesCreate',
                 'admin/articles': 'adminArticles',
                 'admin/login': 'adminLogin',
                 'admin/register': 'adminRegister',
@@ -48,12 +49,16 @@ define(['jquery', 'underscore', 'backbone', 'utils/constant',
 
             },
             before: function (route, params) {
-                if (!this.landingView) {
-                    console.log('Route = ', route);
-                    if (freeRoutes.indexOf(route) == -1 && route.indexOf('admin') > -1) {
-                        this.landingView = new AdminLandingView();
-                    } else {
+                var isAdmin = (route.indexOf(freeRoutes) == -1 && route.indexOf('admin') > -1);
+                if (isAdmin) {
+                    if (currentRole != app.text.role.admin) {
+                        this.landingView = new AdminLanding();
+                        currentRole = app.text.role.admin;
+                    }
+                } else {
+                    if (currentRole != app.text.role.user) {
                         this.landingView = new WebLandingView();
+                        currentRole = app.text.role.user;
                     }
                 }
                 return false;
@@ -69,17 +74,20 @@ define(['jquery', 'underscore', 'backbone', 'utils/constant',
             },
             // Admin functions
             adminLogin: function () {
-                this.loginView = new AdminLoginView({ el: $('#mainContent') });
+                this.loginView = new AdminLogin({ el: $('#mainContent') });
             },
             adminRegister: function () {
-                this.registerView = new AdminRegisterView({ el: $('#mainContent') });
+                this.registerView = new AdminRegister({ el: $('#mainContent') });
             },
             adminCategories: function () {
-                this.categoriesView = new CategoriesView();
+                this.adminCategoryList = new AdminCategoryList();
             },
             adminProfile: function () {
                 var elem = $(app.layout.child);
                 this.profilePage = new ProfileView({ el: elem });
+            },
+            adminArticlesCreate: function() {
+                this.adminArticleCreate = new AdminArticleCreate();
             },
             adminArticles: function () {
                 console.log('Admin Articles');
@@ -101,9 +109,9 @@ define(['jquery', 'underscore', 'backbone', 'utils/constant',
             articleDetail: function () {
                 this.articleDetail = new ArticleDetail();
             },
-            
+
         });
-        var router = new Router();
+        router = new Router();
         Backbone.history.start();
         //    Backbone.history.start({ pushState: true });
         return router;

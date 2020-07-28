@@ -16,6 +16,7 @@ define(		[ 'jquery', 'underscore', 'backbone', 'text!./header.html'],
 
 						render : function() {
 							this.$el.html(this.template());
+							app.executeJqueryDep();
 							return this;
 						},
 
