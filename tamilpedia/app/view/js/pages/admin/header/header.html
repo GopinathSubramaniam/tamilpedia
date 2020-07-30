@@ -1,25 +1,22 @@
-<header id="header">
-    <div id="nav">
-        <div id="nav-top">
-            <div class="container">
-                <div class="nav-logo">
-                    <a href="index.html" class="logo">
-                        Tamilpedia
-                    </a>
-                </div>
-                <div class="nav-btns">
-                    <button class="aside-btn"><i class="fa fa-bars fa-2x"></i></button>
-                </div>
-            </div>
+<nav class="navbar navbar-inverse" id="header">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Tamilpedia</a>
         </div>
-
-        <div id="nav-aside">
-            <ul class="nav-aside-menu">
-                <li><a href="#/admin/articles"><i class="fa fa-newspaper-o"></i> Articles</a></li>
-                <li><a href="#/admin/categories"><i class="fa fa-code-fork"></i> Categories</a></li>
-                <li><a href="#/admin/login"><i class="fa fa-sign-out"></i> Logout</a></li>
-            </ul>
-            <button class="nav-close nav-aside-close"><span></span></button>
-        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#/admin/articles">Articles</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user-circle"></i> Gopi
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
+                    <li><a href="#"><i class="fa fa-sign-out"></i> Logout</a></li>
+                </ul>
+            </li>
+        </ul>
     </div>
-</header>
+</nav>

@@ -49,16 +49,22 @@ define(['jquery', 'underscore', 'backbone', 'utils/constant',
 
             },
             before: function (route, params) {
-                var isAdmin = (route.indexOf(freeRoutes) == -1 && route.indexOf('admin') > -1);
-                if (isAdmin) {
-                    if (currentRole != app.text.role.admin) {
-                        this.landingView = new AdminLanding();
-                        currentRole = app.text.role.admin;
-                    }
-                } else {
-                    if (currentRole != app.text.role.user) {
-                        this.landingView = new WebLandingView();
-                        currentRole = app.text.role.user;
+                if (freeRoutes.indexOf(route) > -1) {
+                    this.landingView = null;
+                    currentRole = null;
+                }
+                if (!this.landingView && freeRoutes.indexOf(route) == -1) {
+                    var isAdmin = (route.indexOf('admin') > -1);
+                    if (isAdmin) {
+                        if (currentRole == null || currentRole == app.text.role.admin) {
+                            this.landingView = new AdminLanding();
+                            currentRole = app.text.role.admin;
+                        }
+                    } else {
+                        if (currentRole == null || currentRole == app.text.role.user) {
+                            this.landingView = new WebLandingView();
+                            currentRole = app.text.role.user;
+                        }
                     }
                 }
                 return false;
@@ -86,7 +92,7 @@ define(['jquery', 'underscore', 'backbone', 'utils/constant',
                 var elem = $(app.layout.child);
                 this.profilePage = new ProfileView({ el: elem });
             },
-            adminArticlesCreate: function() {
+            adminArticlesCreate: function () {
                 this.adminArticleCreate = new AdminArticleCreate();
             },
             adminArticles: function () {

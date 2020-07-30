@@ -17,6 +17,15 @@
         color: #777;
     }
 }
+
+.navbar {
+    margin-bottom: 0px;
+
+    &.navbar-inverse {
+        border-radius: 0px;
+    }
+}
+
 /** Padding CSS*/
 .pt-10 {
     padding-top: 10px;
@@ -44,7 +53,7 @@
 
 .admin-child {
     table thead {
-        background-color: #1b1c1e;
+        background-color: #222;
         color: white;
     }
 }

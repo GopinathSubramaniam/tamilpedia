@@ -23,6 +23,7 @@ define([ 'jquery', 'underscore', 'backbone', 'text!./templates/create.html', '..
 					this.$el.html(this.template(this.model.attributes));
 					app.i18n(this);
 					app.summerNote('#articleContent');
+					$('[name=category]').select2();
 					return this;
 				},
 				createArticle: function(ev){

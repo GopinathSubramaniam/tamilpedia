@@ -1,62 +1,62 @@
-"use strict";
+'use strict';
 
 require.config({
     shim: {
         underscore: {
-            exports: "_"
+            exports: '_'
         },
         backbone: {
-            deps: ["jquery", "jqueryStellar", "underscore"],
-            exports: "Backbone"
+            deps: ['jquery', 'jqueryStellar', 'underscore'],
+            exports: 'Backbone'
         },
         backboneLocalstorage: {
-            deps: ["backbone"],
-            exports: "Store"
+            deps: ['backbone'],
+            exports: 'Store'
         },
         bootstrap: {
-            deps: ["jquery"],
-            exports: "Bootstrap"
+            deps: ['jquery'],
+            exports: 'Bootstrap'
         },
         jqueryStellar: {
-            deps: ["jquery"],
-            exports: "$"
+            deps: ['jquery'],
+            exports: '$'
         },
-        treeview: ["jquery", "bootstrap"],
-        i18n: ["jquery"],
-        messagestore: ["i18n"],
-        fallbacks: ["messagestore"],
-        language: ["fallbacks"],
-        parser: ["language"],
-        emitter: ["parser"],
-        emitterBidi: ["emitter"],
-        app: ["underscore", "backbone", "bootstrap", "messagestore", "emitterBidi", "summerNote"],
+        i18n: ['jquery'],
+        messagestore: ['i18n'],
+        fallbacks: ['messagestore'],
+        language: ['fallbacks'],
+        parser: ['language'],
+        emitter: ['parser'],
+        emitterBidi: ['emitter'],
+        select2: ['jquery'],
+        app: ['underscore', 'backbone', 'bootstrap', 'messagestore', 'emitterBidi', 'summerNote', 'select2']
     },
     paths: {
-        jquery: "../lib/js/jquery.min",
-        bootstrap: "../lib/js/bootstrap.min",
-        jqueryStellar: "../lib/js/jquery.stellar.min",
-        underscore: "../node_modules/underscore/underscore",
-        backbone: "../node_modules/backbone/backbone",
-        backboneLocalStorage: "../node_modules/backbone.localstorage/backbone.localStorage",
-        text: "../node_modules/requirejs-text/text",
-        treeview: "../lib/js/gijgo.tree.min",
-        i18n: "../lib/js/i18n/jquery.i18n.min",
-        messagestore: "../lib/js/i18n/jquery.i18n.messagestore.min",
-        fallbacks: "../lib/js/i18n/jquery.i18n.fallbacks.min",
-        language: "../lib/js/i18n/jquery.i18n.language.min",
-        parser: "../lib/js/i18n/jquery.i18n.parser.min",
-        emitter: "../lib/js/i18n/jquery.i18n.emitter.min",
-        emitterBidi: "../lib/js/i18n/jquery.i18n.emitter.bidi.min",
-        summerNote: "../lib/js/summernote-bs4.min",
-        app: "app"
+        jquery: '../lib/js/jquery.min',
+        bootstrap: '../lib/js/bootstrap.min',
+        jqueryStellar: '../lib/js/jquery.stellar.min',
+        underscore: '../node_modules/underscore/underscore',
+        backbone: '../node_modules/backbone/backbone',
+        backboneLocalStorage: '../node_modules/backbone.localstorage/backbone.localStorage',
+        text: '../node_modules/requirejs-text/text',
+        i18n: '../lib/js/i18n/jquery.i18n.min',
+        messagestore: '../lib/js/i18n/jquery.i18n.messagestore.min',
+        fallbacks: '../lib/js/i18n/jquery.i18n.fallbacks.min',
+        language: '../lib/js/i18n/jquery.i18n.language.min',
+        parser: '../lib/js/i18n/jquery.i18n.parser.min',
+        emitter: '../lib/js/i18n/jquery.i18n.emitter.min',
+        emitterBidi: '../lib/js/i18n/jquery.i18n.emitter.bidi.min',
+        summerNote: '../lib/js/summernote.min',
+        select2: '../lib/js/select2.full.min',
+        app: 'app'
     }
 });
 
 var app = null;
 var router = null;
-require(["app"], function (App) {
-    $.i18n().load({ "en": "view/i18n/en.json", "ta": "view/i18n/ta.json" }).done(function () {
-        $.i18n({ locale: "en" });
-        $("body").i18n();
+require(['app'], function (App) {
+    $.i18n().load({ 'en': 'view/i18n/en.json', 'ta': 'view/i18n/ta.json' }).done(function () {
+        $.i18n({ locale: 'en' });
+        $('body').i18n();
     });
 });
