@@ -1,5 +1,5 @@
-define(['jquery', 'underscore', 'backbone', '../pages/models/bbmodel'],
-    function ($, _, Backbone, BBModel) {
+define(['jquery', 'underscore', 'backbone'],
+    function ($, _, Backbone) {
         'use strict';
 
         var Constant = Backbone.View.extend({
@@ -39,26 +39,24 @@ define(['jquery', 'underscore', 'backbone', '../pages/models/bbmodel'],
                 view.delegateEvents();
             },
 
-            summerNote: function(identifier, height = 300, tabsize = 2) {
+            summerNote: function (identifier, height = 300, tabsize = 2) {
                 return $(identifier).summernote({
-                    height : height,
+                    height: height,
                     tabsize: tabsize,
                     focus: true,
                     placeholder: 'Write your article. You can maximize the editor and write your content',
                 });
             },
 
-            getCategories: function () {
-                var api = new BBModel({ url: this.url.get_category });
-                return api.fetch();
-            },
             layout: {
                 child: '#childContent'
             },
 
             url: {
-                'get_category': '/api/category/all',
-                'post_category': '/api/category/create'
+                category: {
+                    get: '/api/category/all',
+                    post: '/api/category/create'
+                }
             },
             text: {
                 role: {

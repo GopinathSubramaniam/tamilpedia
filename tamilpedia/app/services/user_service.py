@@ -1,4 +1,5 @@
-from tamilpedia.app.models import User
+from django.contrib.auth.models import User
+
 from tamilpedia.app.serializers import UserSerializer
 
 
@@ -7,10 +8,14 @@ class UserService:
         print("init")
 
     def create(self, req):
-        article = req.data
-        data = User.objects.create(**article)
-        ser = UserSerializer(data)
-        return ser.data
+        user = req.data
+        existing_user = User.objects.get(email=user.email)
+        if existing_user is None:
+            data = User.objects.create_user(**user)
+            ser = UserSerializer(data)
+            return ser.data
+
+        return user
 
     def list(self):
         data = User.objects.all()

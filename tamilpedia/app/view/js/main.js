@@ -28,8 +28,8 @@ require.config({
         parser: ['language'],
         emitter: ['parser'],
         emitterBidi: ['emitter'],
-        select2: ['jquery'],
-        app: ['underscore', 'backbone', 'bootstrap', 'messagestore', 'emitterBidi', 'summerNote', 'select2']
+        magicsuggest: ['jquery'],
+        app: ['underscore', 'backbone', 'bootstrap', 'messagestore', 'emitterBidi', 'summerNote', 'magicsuggest']
     },
     paths: {
         jquery: '../lib/js/jquery.min',
@@ -47,7 +47,7 @@ require.config({
         emitter: '../lib/js/i18n/jquery.i18n.emitter.min',
         emitterBidi: '../lib/js/i18n/jquery.i18n.emitter.bidi.min',
         summerNote: '../lib/js/summernote.min',
-        select2: '../lib/js/select2.full.min',
+        magicsuggest: '../lib/js/magicsuggest-min',
         app: 'app'
     }
 });

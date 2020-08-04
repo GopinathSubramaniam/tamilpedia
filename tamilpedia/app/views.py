@@ -1,8 +1,9 @@
 import logging
 
 from django.http import JsonResponse
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from tamilpedia.app.services.article_service import ArticleService
 from tamilpedia.app.services.category_service import CategoryService
@@ -14,6 +15,7 @@ logger = logging.getLogger(__name__)
 
 # Create your views here.
 class UserView(APIView):
+    permission_classes = (IsAuthenticated)
 
     @api_view(['GET'])
     def list(self):
@@ -31,12 +33,12 @@ class UserView(APIView):
 class CategoryView(APIView):
 
     @api_view(['GET'])
+    @authentication_classes([])
+    @permission_classes([])
     def all(self):
         cat_service = CategoryService()
-        category_tree = cat_service.get_all_categories()
         categories = list(cat_service.get_all())
-        json_data = {'tree': category_tree, 'cats': categories}
-        res = Util.get_res(json_data)
+        res = Util.get_res(categories)
         return JsonResponse(res, safe=False)
 
     @api_view(['GET'])
@@ -53,6 +55,7 @@ class CategoryView(APIView):
 
 
 class ArticleView(APIView):
+    permission_classes = (IsAuthenticated)
 
     @api_view(['POST'])
     def create(self, req):
